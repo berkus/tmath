@@ -83,7 +83,7 @@ example (n:Nat): Acc Nat.lt n := by
   apply Nat.rec
   · show Acc _ 0
     exact Acc.intro _ $ λk (h: k < 0) => absurd h (Nat.not_lt_zero k)
-  · refine λn h => (?_: Acc _ n.succ)
+  · refine λn (h: Acc _ n) => (?_: Acc _ n.succ)
     refine Acc.intro _ $ λk (lt: k < n.succ) => (?_: Acc _ k)
     apply (Nat.eq_or_lt_of_le (Nat.le_of_succ_le_succ lt)).elim
     · intro (l: k = n); exact l ▸ h
