@@ -35,10 +35,10 @@ theorem add_assoc {n k p: Nat}: (n + k) + p = n + (k + p) := by
                    _ = (n + (k + p)).succ :=  by rw[h]
 
 example {n k p: Nat}: (n + k) + p = n + (k + p) :=
-  p.recOn rfl (λp h => by simp[add_succ, h])
+  p.recOn rfl (λp h => by simp only [add_succ, h])
 
 theorem add_comm {n k: Nat}: n + k = k + n :=
-  n.recOn (by rw[zero_add]; rfl) (λn h => by simp[add_succ, succ_add, h])
+  n.recOn (by rw[zero_add]; rfl) (λn h => by simp only [add_succ, succ_add, h])
 
 theorem add_left_comm (n k p: Nat): n + (k + p) = k + (n + p) :=
 calc  n + (k + p)
@@ -67,7 +67,7 @@ theorem succ_mul {n k: Nat}: n.succ * k = n * k + k := by
   calc  n.succ * k.succ
       = n.succ * k + n.succ  := by rw[mul_succ]
     _ = n * k + k + n.succ   := by simp [h]
-    _ = n * k + n + k.succ   := by simp [add_assoc, add_comm, add_left_comm, add_succ]
+    _ = n * k + n + k.succ   := by simp only [add_assoc, add_comm, add_left_comm, add_succ]
     _ = n * k.succ + k.succ  := by simp [mul_succ]
 
 theorem one_mul {n:Nat}: 1*n = n := by
@@ -77,7 +77,7 @@ theorem one_mul {n:Nat}: 1*n = n := by
 theorem mul_left_distr {n k p: Nat}: n * (k + p) = n * k + n * p := by
   refine p.recOn rfl (λp h => ?_)
   show n * (k + p.succ) = n * k + n * p.succ
-  simp [add_succ, mul_succ, h, add_assoc]
+  simp only [add_succ, mul_succ, h, add_assoc]
 
 theorem mul_assoc {n k p: Nat}: (n * k) * p = n * (k * p) := by
   refine p.recOn rfl (λp h => ?_)
